@@ -24,11 +24,11 @@ def runTest():
     print(myHeaderTab)
 
     #
-    # condPats_a =  fpGrowth.findPrefixPath('a', myHeaderTab['a'][1])
-    # condPats_b = fpGrowth.findPrefixPath('b', myHeaderTab['b'][1])
-    # condPats_c = fpGrowth.findPrefixPath('c', myHeaderTab['c'][1])
-    # condPats_d = fpGrowth.findPrefixPath('d', myHeaderTab['d'][1])
-    # condPats_e = fpGrowth.findPrefixPath('e', myHeaderTab['e'][1])
+    # condPats_a =  fpGrowth.findPrefixPath('a', myHeaderTab['a'][objects])
+    # condPats_b = fpGrowth.findPrefixPath('b', myHeaderTab['b'][objects])
+    # condPats_c = fpGrowth.findPrefixPath('c', myHeaderTab['c'][objects])
+    # condPats_d = fpGrowth.findPrefixPath('d', myHeaderTab['d'][objects])
+    # condPats_e = fpGrowth.findPrefixPath('e', myHeaderTab['e'][objects])
     # print("----------------------------------------------- condPats_a -----------------------------------------------")
     # print (condPats_a)
     # print("----------------------------------------------- condPats_b -----------------------------------------------")

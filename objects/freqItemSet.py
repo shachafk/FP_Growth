@@ -1,3 +1,7 @@
+
+## this class will hold all itemset information
+
+
 class freqItemSet:
     def __init__(self, itemSet, database):
         self.itemSet = itemSet
@@ -9,16 +13,15 @@ class freqItemSet:
 
     def calatotaltran(self,db):
         itemSet = self.itemSet
-
         items = db.marine.items()
         for tran in items :
-            exists= itemSet.issubset(tran[1])
+            exists= itemSet.issubset(tran[1][0])
             if (exists):
                 self.geneFromClass0.append(tran[0])
 
         items = db.fresh.items()
         for tran in items:
-            exists = itemSet.issubset(tran[1])
+            exists = itemSet.issubset(tran[1][0])
             if (exists):
                 self.geneFromClass1.append(tran[0])
 
