@@ -14,9 +14,14 @@ class reportObject:
 
 def __repr__(self):
     return repr(
-        'index: ' + str(self.index) + ',itemset: ' + str(self.itemSet) + ',informationGain: ' + str (self.ig) + ",numOfTransTotal: " + str(self.numOfTransTotal)
-        + ",numOfTransTotalClass0: " + str(self.numOfTransTotalClass0) + ",numOfTransTotalClass1: " + str(
-            self.numOfTransTotalClass1)
-        + ",numOfTransItemClass0: " + str(self.numOfTransItemClass0) + ",numOfTransItemClass1: " + str(
-            self.numOfTransItemClass1)
-    )
+        str(self.index) + "|" +
+        str(self.itemSet)  + "|" +
+        str (self.ig)  + "|" +
+        str(self.numOfTransTotal) + "|" +
+        str(self.numOfTransTotalClass0)  + "|" +
+        str(self.numOfTransTotalClass1)  + "|" +
+        str(self.numOfTransItemClass0)  + "|" +
+        str( self.numOfTransItemClass0 / self.numOfTransTotalClass0)+ "|" +
+        str(self.numOfTransItemClass1) + "|" +
+        str(self.numOfTransItemClass1 / self.numOfTransTotalClass1))
+

@@ -1,6 +1,0 @@
-To run the program open cmd and run
-python main.py
-there is an option to run with minSup and k parameters, below example for minSup=199 and k=6
-python main.py 199 6
-
-The input files can be find under "preperations\inputFiles"

@@ -13,7 +13,6 @@ def createInitSet(dataSet):
     return retDict
 
 
-
 def createInitSet2Clasess(dataSet0, dataset1):
     retDict = {}
     # class label 0
@@ -52,14 +51,14 @@ def order(localD):
     return orderedItems
 
 
-def createTree(dataSet, minSup=1):  # create FP-tree from dataset but don't mine
+def createTree(dataSet, minSup, maxSup):  # create FP-tree from dataset but don't mine
     headerTable = {}
     # go over dataSet twice
     for trans in dataSet:  # first pass counts frequency of occurrence
         for item in trans:
             headerTable[item] = headerTable.get(item, 0) + dataSet[trans]
     for k in list(headerTable):  # remove items not meeting minSup
-        if headerTable[k] < minSup:
+        if headerTable[k] < minSup or headerTable[k] > maxSup:
             del (headerTable[k])
 
     freqItemSet = set(headerTable.keys())
@@ -76,7 +75,7 @@ def createTree(dataSet, minSup=1):  # create FP-tree from dataset but don't mine
                 localD[item] = headerTable[item][0]
         if len(localD) > 0:
             orderedItems = order(localD)
-          # orderedItems = [v[0] for v in sorted(localD.items(), key=lambda p: p[1], reverse=True)]
+            # orderedItems = [v[0] for v in sorted(localD.items(), key=lambda p: p[1], reverse=True)]
             updateTree(orderedItems, retTree, headerTable, count)  # populate tree with ordered freq itemset
     return retTree, headerTable  # return tree and header table
 
@@ -129,31 +128,14 @@ def findPrefixPath(basePat, treeNode):  # treeNode comes from header table
     return condPats
 
 
-def mineTree(inTree, headerTable, minSup, preFix, freqItemList):
+def mineTree(inTree, headerTable, minSup, preFix, freqItemList, maxSup):
     bigL = [v[0] for v in sorted(headerTable.items(), key=lambda p: p[1][0])]  # (sort header table)
     for basePat in bigL:  # start from bottom of header table
         newFreqSet = preFix.copy()
         newFreqSet.add(basePat)
-        if len(newFreqSet) < 4:
+        if len(newFreqSet) < 3:
             freqItemList.append(newFreqSet)
             condPattBases = findPrefixPath(basePat, headerTable[basePat][1])
-            myCondTree, myHead = createTree(condPattBases, minSup)
+            myCondTree, myHead = createTree(condPattBases, minSup, maxSup)
             if myHead != None:
-                mineTree(myCondTree, myHead, minSup, newFreqSet, freqItemList)
-
-#
-# def calcIGub(freqItemList, database):
-#     itemset = freqItemSet(freqItemList[0], database)
-#     totalTran = len(database.marine) + len(database.fresh)
-#     ## c =0
-#     ## p ( x = objects) = support
-#     support = len(itemset.geneFromClass0) + len(itemset.geneFromClass1)
-#     ## p (c=objects) = p
-#     p = len(database.marine) / (len(database.marine) + len(database.fresh))
-#     # P(c =objects I x = objects) = q
-#     q = len(itemset.geneFromClass1) / support
-#     IGub = 0
-#     if q == 1:
-#         IGub = -p * log2(p) - (1 - p) * log2(1 - p) + (p - support) * log2((p - support) / 1 - support) + (
-#                 1 - p) * log2((1 - p) / (1 - support))
-#     return IGub
+                mineTree(myCondTree, myHead, minSup, newFreqSet, freqItemList,maxSup)
